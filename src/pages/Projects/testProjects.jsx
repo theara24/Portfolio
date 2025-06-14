@@ -1,128 +1,130 @@
-import { ReactLenis } from "lenis/react";
-import { useTransform, motion, useScroll } from "framer-motion";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 const projects = [
   {
-    title: "Olova! A Lightweight JavaScript Library",
+    title: 'C/C++',
     description:
-      "A lightweight JavaScript library for creating beautiful, responsive UI components.",
-    src: "rock.jpg",
-    link: "https://i.postimg.cc/DwgWTfP0/Annotation-2025-03-19-113338.png",
-    color: "#5196fd",
-    githubLink: "https://github.com/seraprogrammer/portfolio",
-    liveLink: "https://codervai.vercel.app",
+      'A project showcasing advanced problem-solving using C/C++ programming.',
+    src: '/src/assets/images/cpp-project.jpg', // Correct image path
+    color: '#007ACC', // Blue color for C/C++
+    githubLink: 'https://github.com/your-repo/cpp-project', // Replace with your GitHub repo link
+    liveLink: 'https://example.com/cpp-project', // Replace with the live project link
   },
   {
-    title: "A sleek portfolio built with React and Tailwind CSS ",
+    title: 'Easy Found (Web Design)',
     description:
-      "A sleek portfolio built with React and Tailwind CSS to showcase your skills, projects, and experience in a modern design.",
-    src: "tree.jpg",
-    link: "https://i.postimg.cc/J75CKyrs/Annotation-2025-04-01-203959.png",
-    color: "#8f89ff",
-    githubLink: "https://github.com/seraprogrammer/portfolio",
-    liveLink: "https://codervai.vercel.app",
+      'A modern web design project focusing on user-friendly interfaces and responsive layouts.',
+    src: '/src/assets/images/easy-found.jpg', // Correct image path
+    color: '#FF5733', // Orange color for Easy Found
+    githubLink: 'https://github.com/your-repo/easy-found', // Replace with your GitHub repo link
+    liveLink: 'https://example.com/easy-found', // Replace with the live project link
   },
   {
-    title: "🚀 CodeWhisperer",
+    title: 'JobSeek (Web Design)',
     description:
-      "🚀 CodeWhisperer A powerful online code editor built with React and Tailwind CSS. Featuring real-time code execution, syntax highlighting, multi-language support, and a sleek UI. Start coding instantly! 💻✨",
-    src: "water.jpg",
-    link: "https://i.postimg.cc/J4jPVFY0/Annotation-2025-04-01-204723.png",
-    color: "#fff",
-    githubLink: "https://github.com/seraprogrammer/codewhisperer",
-    liveLink: "https://codewhisperer.vercel.app/",
+      'A web design project aimed at connecting job seekers with employers through a sleek and intuitive interface.',
+    src: '/src/assets/images/jobseek.jpg', // Correct image path
+    color: '#28A745', // Green color for JobSeek
+    githubLink: 'https://github.com/your-repo/jobseek', // Replace with your GitHub repo link
+    liveLink: 'https://example.com/jobseek', // Replace with the live project link
   },
   {
-    title: "CodeKori 🔥",
+    title: 'Cartify (Java)',
     description:
-      "CodeKori is a powerful online code editor built with React and Tailwind CSS. Featuring real-time code execution, syntax highlighting, multi-language support, and a sleek UI. Start coding instantly! 💻✨",
-    src: "house.jpg",
-    link: "https://i.postimg.cc/cHQr4fpR/Annotation-2025-04-01-205350.png",
-    color: "#ed649e",
-    githubLink: "https://github.com/seraprogrammer/CodeKori",
-    liveLink: "https://codekori.js.org",
+      'A Java-based e-commerce platform for managing shopping carts and orders efficiently.',
+    src: '/src/assets/images/istad-fundamental.jpg', // Correct image path
+    color: '#F39C12', // Yellow color for Cartify
+    githubLink: 'https://github.com/your-repo/cartify', // Replace with your GitHub repo link
+    liveLink: 'https://example.com/cartify', // Replace with the live project link
   },
 ];
 
 export default function Projects1() {
-  const container = useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: container,
-    offset: ["start start", "end end"],
-  });
+  const containerRef = useRef(null);
+
+  useEffect(() => {
+    gsap.fromTo(
+      containerRef.current.children,
+      { opacity: 0, y: 50 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 1,
+        stagger: 0.2,
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: 'top 80%',
+          end: 'bottom 20%',
+          toggleActions: 'play none none reverse',
+        },
+      }
+    );
+  }, []);
 
   return (
-    <ReactLenis root>
-      <main className="bg-black" ref={container}>
-        <section className="text-white w-full bg-slate-950">
-          {projects.map((project, i) => {
-            const targetScale = 1 - (projects.length - i) * 0.05;
-            return (
-              <Card
-                key={`p_${i}`}
-                i={i}
-                url={project.link}
-                src={project.src}
-                title={project.title}
-                color={project.color}
-                description={project.description}
-                progress={scrollYProgress}
-                range={[i * 0.25, 1]}
-                targetScale={targetScale}
-              />
-            );
-          })}
-        </section>
-      </main>
-    </ReactLenis>
+    <main className="bg-black">
+      <section className="text-white w-full bg-slate-950" ref={containerRef}>
+        {projects.map((project, i) => (
+          <Card
+            key={`p_${i}`}
+            i={i}
+            src={project.src}
+            title={project.title}
+            color={project.color}
+            description={project.description}
+            githubLink={project.githubLink}
+            liveLink={project.liveLink}
+          />
+        ))}
+      </section>
+    </main>
   );
 }
 
-function Card({
-  i,
-  title,
-  description,
-  src,
-  url,
-  color,
-  progress,
-  range,
-  targetScale,
-}) {
-  const container = useRef(null);
-  const [isHovered, setIsHovered] = useState(false);
-  const { scrollYProgress } = useScroll({
-    target: container,
-    offset: ["start end", "start start"],
-  });
+function Card({ i, title, description, src, color, githubLink, liveLink }) {
+  const cardRef = useRef(null);
 
-  const scale = useTransform(progress, range, [1, targetScale]);
+  useEffect(() => {
+    gsap.fromTo(
+      cardRef.current,
+      { opacity: 0, scale: 0.9 },
+      {
+        opacity: 1,
+        scale: 1,
+        duration: 0.8,
+        scrollTrigger: {
+          trigger: cardRef.current,
+          start: 'top 90%',
+          end: 'top 70%',
+          toggleActions: 'play none none reverse',
+        },
+      }
+    );
+  }, []);
 
   return (
     <div
-      ref={container}
+      ref={cardRef}
       className="h-screen flex items-center justify-center sticky top-0"
     >
       <motion.div
-        style={{
-          scale,
-          top: `calc(-5vh + ${i * 25}px)`,
-        }}
-        className="relative -top-[25%] h-auto w-[90%] md:w-[85%] lg:w-[75%] xl:w-[65%] origin-top"
+        className="relative h-auto w-[90%] md:w-[85%] lg:w-[75%] xl:w-[65%] origin-top"
         whileHover={{
           y: -8,
           transition: { duration: 0.3 },
         }}
-        onHoverStart={() => setIsHovered(true)}
-        onHoverEnd={() => setIsHovered(false)}
       >
         {/* Modern split card design */}
         <div className="w-full flex flex-col md:flex-row bg-zinc-900 rounded-2xl overflow-hidden shadow-xl">
-          {/* Image section - full width on mobile, 55% on desktop */}
+          {/* Image section */}
           <div className="w-full md:w-[55%] h-[250px] md:h-[400px] lg:h-[450px] relative overflow-hidden">
             <motion.img
-              src={url}
+              src={src}
               alt={title}
               className="w-full h-full object-cover"
               initial={{ scale: 1 }}
@@ -130,10 +132,10 @@ function Card({
               transition={{ duration: 0.4 }}
             />
 
-            {/* Colored overlay on hover */}
+            {/* Colored overlay */}
             <motion.div
               className="absolute inset-0"
-              style={{ backgroundColor: color, mixBlendMode: "overlay" }}
+              style={{ backgroundColor: color, mixBlendMode: 'overlay' }}
               initial={{ opacity: 0 }}
               whileHover={{ opacity: 0.3 }}
               transition={{ duration: 0.3 }}
@@ -145,7 +147,7 @@ function Card({
             </div>
           </div>
 
-          {/* Content section - full width on mobile, 45% on desktop */}
+          {/* Content section */}
           <div className="w-full md:w-[45%] p-6 md:p-8 lg:p-10 flex flex-col justify-between">
             <div>
               <div className="flex items-center gap-3 mb-4 md:mb-6">
@@ -170,12 +172,12 @@ function Card({
               <div className="flex items-center gap-4">
                 {/* GitHub Link */}
                 <motion.a
-                  href={projects[i].githubLink}
+                  href={githubLink}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="group flex items-center gap-2"
                   whileHover={{ y: -3 }}
-                  transition={{ type: "spring", stiffness: 400 }}
+                  transition={{ type: 'spring', stiffness: 400 }}
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -200,12 +202,12 @@ function Card({
 
                 {/* Live Link */}
                 <motion.a
-                  href={projects[i].liveLink}
+                  href={liveLink}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="group flex items-center gap-2"
                   whileHover={{ y: -3 }}
-                  transition={{ type: "spring", stiffness: 400 }}
+                  transition={{ type: 'spring', stiffness: 400 }}
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"

@@ -1,61 +1,113 @@
-import React, { useState } from "react";
-import EducationLoader from "@/components/ui/EducationLoader";
-import {
-  Star,
-  Award,
-  Calendar,
-  BookOpen,
-  GraduationCap,
-  Trophy,
-} from "lucide-react";
-import { motion } from "framer-motion";
+import React, { useState } from 'react';
+import { Calendar, BookOpen, X } from 'lucide-react';
+import { motion } from 'framer-motion';
+
+// Import images
+import setcImage from '@/assets/images/istad-fundamental.jpg';
+import cppImage from '@/assets/images/cpp-project.jpg';
+import istadPreUniversityImage from '@/assets/images/istad-fundamental.jpg';
+import istadFundamentalImage from '@/assets/images/istad-fundamental.jpg';
+import pucEnglishImage from '@/assets/images/istad-fundamental.jpg';
+import ckccKoreanImage from '@/assets/images/istad-fundamental.jpg';
 
 const EducationSection = () => {
   const [hoveredIndex, setHoveredIndex] = useState(null);
+  const [selectedEducation, setSelectedEducation] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const educationData = [
     {
-      degree: "Secondary School Certificate (SSC)",
-      school: "Natore Textile Institute",
-      mascot: "📘",
-      year: "2019-2021",
-      achievements: ["GPA: 4.89", "Subject: Science"],
-      skills: ["Mathematics", "Physics", "Chemistry", "Biology"],
-      description:
-        "Focused on core science subjects with emphasis on practical laboratory work and scientific research methodologies.",
+      degree: 'First Year - SETC University',
+      school: 'SETC University',
+      mascot: '📘',
+      year: '2023-2024',
+      description: 'Studying core computer science and management principles.',
+      image: setcImage,
+      semesters: [
+        {
+          semester: 'Semester 1',
+          courses: [
+            'A+ (COMPUTER MAINTENANCE & REPAIR) I',
+            'C++ PROGRAMMING',
+            'OFFICE APPLICATIONS',
+            'DATA STRUCTURE I',
+            'HISTORY',
+            'PRINCIPLES OF MANAGEMENT',
+            'COMPUTER MATHEMATICS',
+            'GRAPHIC DESIGN I',
+            'ENGLISH 1',
+          ],
+        },
+        {
+          semester: 'Semester 2',
+          courses: [
+            'A+ (COMPUTER MAINTENANCE & REPAIR) II',
+            'C PROGRAMMING I',
+            'WEB DEVELOPMENT I',
+            'DATA STRUCTURE II',
+            'CULTURE & CIVILISATION',
+            'PUBLIC RELATIONS',
+            'ACCOUNTING',
+            'GRAPHIC DESIGN II',
+            'ENGLISH 2',
+          ],
+        },
+      ],
     },
     {
-      degree: "Higher Secondary Certificate (HSC)",
-      school: "Dottopara Model Degree College",
-      mascot: "📗",
-      year: "2021-2023",
-      achievements: ["GPA: 4.25", "Subject: Arts"],
-      skills: ["Literature", "Social Studies", "Economics", "History"],
+      degree: 'C/C++',
+      school: 'Ant Training Technology',
+      mascot: '📗',
+      year: '2024',
       description:
-        "Developed strong analytical and critical thinking skills through comprehensive study of humanities and social sciences.",
+        'Studied C/C++ programming to enhance problem-solving skills.',
+      image: cppImage,
+    },
+    {
+      degree: 'Pre-University Scholarship',
+      school:
+        'Institute of Science and Technology Advanced Development - ISTAD',
+      mascot: '📗',
+      year: '2024',
+      description: 'Studied Web Design (HTML, CSS, JavaScript, UX/UI, Deploy).',
+      image: istadPreUniversityImage,
+    },
+    {
+      degree: 'Fundamental Scholarship',
+      school:
+        'Institute of Science and Technology Advanced Development - ISTAD',
+      mascot: '📗',
+      year: '2024',
+      description:
+        'Studied Web Design (HTML, CSS, JavaScript, UX/UI, Deploy), Database, and Java.',
+      image: istadFundamentalImage,
+    },
+    {
+      degree: 'English Program',
+      school: 'PUC: Paññāsāstra University of Cambodia',
+      mascot: '📘',
+      year: '2024',
+      description: 'Completed English studies to enhance communication skills.',
+      image: pucEnglishImage,
+    },
+    {
+      degree: 'Korean Program',
+      school: 'CKCC: Cambodia-Korea Cooperation Center',
+      mascot: '📘',
+      year: '2024',
+      description: 'Completed Korean studies to improve language proficiency.',
+      image: ckccKoreanImage,
     },
   ];
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2,
-      },
-    },
+  const openModal = (education) => {
+    setSelectedEducation(education);
+    setIsModalOpen(true);
   };
 
-  const cardVariants = {
-    hidden: { y: 50, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: {
-        duration: 0.6,
-        ease: "easeOut",
-      },
-    },
+  const closeModal = () => {
+    setSelectedEducation(null);
+    setIsModalOpen(false);
   };
 
   return (
@@ -84,78 +136,85 @@ const EducationSection = () => {
         </motion.div>
 
         <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
           className="grid grid-cols-1 md:grid-cols-2 gap-8"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.6 }}
         >
           {educationData.map((edu, index) => (
-            <motion.div
+            <div
               key={index}
-              variants={cardVariants}
-              className={`relative border rounded-xl p-8 transition-all duration-300 bg-gray-900/50 backdrop-blur-sm ${
-                hoveredIndex === index
-                  ? "border-teal-500 scale-[1.02]"
-                  : "border-blue-400/20"
-              }`}
-              onMouseEnter={() => setHoveredIndex(index)}
-              onMouseLeave={() => setHoveredIndex(null)}
+              className="relative border rounded-xl p-8 bg-gray-900/50 backdrop-blur-sm hover:scale-[1.02] transition-all duration-300 cursor-pointer"
+              onClick={() => openModal(edu)}
             >
-              <div className="space-y-6">
-                <div className="space-y-2">
-                  <div className="flex items-center gap-3">
-                    <span className="text-3xl">{edu.mascot}</span>
-                    <h3 className="text-2xl font-bold text-white">
-                      {edu.degree}
-                    </h3>
-                  </div>
-                  <p className="text-lg text-gray-300 flex items-center gap-2">
-                    <BookOpen className="w-5 h-5 text-teal-500" />
-                    {edu.school}
-                  </p>
-                  <p className="text-gray-400 flex items-center gap-2">
-                    <Calendar className="w-4 h-4" />
-                    {edu.year}
-                  </p>
+              <div className="space-y-4">
+                <div className="flex items-center gap-3">
+                  <span className="text-3xl">{edu.mascot}</span>
+                  <h3 className="text-2xl font-bold text-white">
+                    {edu.degree}
+                  </h3>
                 </div>
-
-                <p className="text-gray-300 text-sm italic border-l-2 border-teal-500 pl-3">
-                  {edu.description}
+                <p className="text-lg text-gray-300 flex items-center gap-2">
+                  <BookOpen className="w-5 h-5 text-teal-500" />
+                  {edu.school}
                 </p>
-
-                <div className="space-y-3">
-                  <h4 className="text-sm font-semibold text-white flex items-center gap-2">
-                    <Trophy className="w-4 h-4 text-yellow-500" />
-                    Key Achievements
-                  </h4>
-                  <div className="flex flex-wrap gap-2">
-                    {edu.achievements.map((achievement, i) => (
-                      <div
-                        key={i}
-                        className="px-3 py-1 rounded-full bg-teal-500/10 text-teal-400 flex items-center gap-2 text-sm"
-                      >
-                        <Award className="w-4 h-4" />
-                        <span>{achievement}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                <div className="flex flex-wrap gap-2">
-                  {edu.skills.map((skill, i) => (
-                    <span
-                      key={i}
-                      className="px-2 py-1 text-xs rounded bg-blue-500/10 text-blue-300"
-                    >
-                      {skill}
-                    </span>
-                  ))}
-                </div>
+                <p className="text-gray-400 flex items-center gap-2">
+                  <Calendar className="w-4 h-4" />
+                  {edu.year}
+                </p>
               </div>
-            </motion.div>
+            </div>
           ))}
         </motion.div>
       </div>
+
+      {/* Modal */}
+      {isModalOpen && selectedEducation && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div
+            className="bg-gray-800 text-white rounded-lg p-6 w-[80%] max-w-none relative"
+            style={{ maxHeight: '90vh', overflowY: 'auto' }}
+          >
+            <button
+              className="absolute top-4 right-4 text-gray-400 hover:text-white"
+              onClick={closeModal}
+            >
+              <X className="w-6 h-6" />
+            </button>
+            <div className="flex flex-col md:flex-row gap-6">
+              <img
+                src={selectedEducation.image}
+                alt={`${selectedEducation.degree} Certificate`}
+                className="w-full md:w-1/2 h-auto rounded-lg"
+              />
+              <div className="flex-1">
+                <h3 className="text-3xl font-bold mb-4">
+                  {selectedEducation.degree}
+                </h3>
+                <p className="text-gray-300 mb-4">
+                  {selectedEducation.description}
+                </p>
+                {selectedEducation.semesters && (
+                  <div className="space-y-4">
+                    {selectedEducation.semesters.map((semester, index) => (
+                      <div key={index}>
+                        <h4 className="text-lg font-semibold text-teal-400">
+                          {semester.semester}
+                        </h4>
+                        <ul className="list-disc pl-6 text-gray-300">
+                          {semester.courses.map((course, courseIndex) => (
+                            <li key={courseIndex}>{course}</li>
+                          ))}
+                        </ul>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 };

@@ -1,5 +1,5 @@
-import HeroImg from "@/assets/images/hero.jpg";
-import OlovaLogo from "@/assets/images/olova.png";
+import HeroImg from '@/assets/images/hero.jpg';
+import OlovaLogo from '@/assets/images/olova.png';
 
 export default function About() {
   return (
@@ -7,7 +7,8 @@ export default function About() {
       <section id="about" className="py-16 md:py-32  text-white bg-[#04081A]">
         <div className="mx-auto max-w-5xl space-y-8 px-6 md:space-y-16">
           <h2 className="relative z-10 max-w-xl text-4xl font-medium lg:text-5xl text-white">
-            Developer, Designer, Creator, Innovator
+            UI/UX Designer, Grapich Designer, Development Projects, Academic &
+            Presentations
           </h2>
           <div className="grid gap-6 sm:grid-cols-2 md:gap-12 lg:gap-24">
             <div className="relative mb-6 sm:mb-0">
@@ -24,14 +25,15 @@ export default function About() {
 
             <div className="relative space-y-4">
               <p className="text-white">
-                Hello! I'm Nazmul Hossain, a passionate JavaScript developer
-                specializing in creating innovative web solutions and
-                user-friendly interfaces.{" "}
+                Hello! I'm <span className="font-bold">Chim Theara</span>, a passionate
+                JavaScript developer specializing in creating innovative web
+                solutions and user-friendly interfaces.{' '}
                 <span className="font-bold text-white">
                   As the creator of the OlovaJS UI Framework
                 </span>
                 , I'm dedicated to simplifying development workflows.
               </p>
+
               <p className="text-white">
                 My focus is on making web development faster, easier, and
                 accessible to all developers. Currently, I'm expanding into
@@ -51,17 +53,17 @@ export default function About() {
 
                   <div className="mt-6 space-y-3">
                     <cite className="block font-medium text-white">
-                      Nazmul Hossain, Creator of
+                      Chim Theara, Creator of
                     </cite>
                     <div className="flex items-center gap-2">
                       <img
-                        className="h-5 w-fit"
+                        className="h-5 w-auto"
                         src={OlovaLogo}
                         alt="Olova Logo"
                         height="20"
                         width="auto"
                       />
-                      <span className="text-white">OlovaJS</span>
+                      <span className="text-white font-bold">OlovaJS</span>
                     </div>
                   </div>
                 </blockquote>

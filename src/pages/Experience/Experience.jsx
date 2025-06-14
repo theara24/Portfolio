@@ -1,5 +1,14 @@
-import React from "react";
-import { Code2, Activity, Cpu, Layers, Network, Binary } from "lucide-react";
+import React from 'react';
+import {
+  Code2,
+  Activity,
+  Cpu,
+  Layers,
+  Network,
+  Binary,
+  PenTool,
+  Video,
+} from 'lucide-react';
 
 const ExperienceCard = ({
   title,
@@ -55,27 +64,54 @@ const ExperienceSection = () => {
   const experiences = [
     {
       icon: Network,
-      title: "WordPress Developer",
-      company: "Fiverr",
-      period: "2019 - 2020",
+      title: 'WordPress Developer',
+      company: 'Fiverr',
+      period: '2019 - 2020',
       description:
-        "Worked on developing and customizing WordPress websites for clients globally.",
+        'Worked on developing and customizing WordPress websites for clients globally.',
     },
     {
       icon: Layers,
-      title: "Junior Frontend Developer",
-      company: "Sera Programmer",
-      period: "2021 - 2023",
+      title: 'Junior Frontend Developer',
+      company: 'Sera Programmer',
+      period: '2021 - 2023',
       description:
-        "Assisted in building and optimizing user interfaces with a focus on responsive and interactive designs.",
+        'Assisted in building and optimizing user interfaces with a focus on responsive and interactive designs.',
     },
     {
       icon: Code2,
-      title: "JavaScript Developer",
-      company: "OlovJS (Sera Programmer)",
-      period: "2023 - Present",
+      title: 'JavaScript Developer',
+      company: 'OlovJS (Sera Programmer)',
+      period: '2023 - Present',
       description:
-        "Contributed to developing JavaScript libraries and enhancing framework functionalities.",
+        'Contributed to developing JavaScript libraries and enhancing framework functionalities.',
+    },
+    // New Card 1
+    {
+      icon: PenTool,
+      title: 'Graphic Designer',
+      company: 'Freelance',
+      period: '2020 - Present',
+      description:
+        'Created stunning visuals using Adobe Photoshop, Adobe Illustrator, and Adobe InDesign.',
+    },
+    // New Card 2
+    {
+      icon: Activity,
+      title: 'UI/UX Designer',
+      company: 'Creative Studio',
+      period: '2021 - Present',
+      description:
+        'Designed user-friendly interfaces and experiences using Figma and Adobe XD.',
+    },
+    // New Card 3
+    {
+      icon: Video,
+      title: 'Video & Photo Editor',
+      company: 'Freelance',
+      period: '2020 - Present',
+      description:
+        'Edited videos and photos using CapCut, Adobe Premiere Pro, and Adobe Lightroom.',
     },
   ];
 
